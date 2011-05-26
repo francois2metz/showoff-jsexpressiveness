@@ -14,10 +14,19 @@
 
 !SLIDE
 
+    @@@ javascript
     eat food for food in ['toast', 'cheese', 'wine']
 
-!SLIDE center
+!SLIDE
 
+    @@@ javascript
+    numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    part = numbers[3..6]
+
+!SLIDE
+# Fuyez !
+
+!SLIDE center
 # Différents type de code
 
 !SLIDE bullets incremental
@@ -26,39 +35,81 @@
 * Le bon code
 
 !SLIDE
+# Pourquoi être expressif ?
+
+!SLIDE
+# Puoqroui êrte esifxserps ?
+
+!SLIDE small
 
     @@@ javascript
-    var result = true;
+    for (var i = 0; ???
+       if (doc.path[i].Education && doc[i].Education.institution.id)
+          for (var j = ....
+              ...
+              emit(doc)
+       ...
+       ...
+    ..
+
+!SLIDE small
+
+    @@@ javascript
+    var arr = [
+                 {
+                     page: 1,
+                     src: 'http://exemple.com/img1.jpg',
+
+                 },
+                 {
+                     page: 2,
+                     src: 'http://exemple.com/img2.jpg',
+
+                 },
+                 ....
+              ]
+
+!SLIDE
+
+    @@@ javascript
+    var pages = []
     for (var i = 0; i < arr.length; i++) {
-        if (arr[i].enabled === false) {
-            result = false
-            break
+        if (arr[i].page > 3) {
+            pages.push(arr[i])
         }
     }
 
 !SLIDE
 
     @@@ javascript
-    var i = 0
-    while (i < 3) {
-        i++
-        fun()
+    var imgs = []
+    for (var i = 0; i < pages.length; i++) {
+        imgs.push(pages[i].src)
     }
 
 !SLIDE
+# underscore.js
 
-    @@@ javascript
-    if (arr typeof == 'Array')
-        fun()
+## *3kb, Minified and Gzipped*
 
-!SLIDE execute
+## http://documentcloud.github.com/underscore/
+
+!uSLIDE
 
     @@@javaScript
-    var arr = [{enabled: false}, {enabled: true}]
-    var result = _(arr).all(function(val) {
-        return (val.enabled === true)
-    })
-    alert(result)
+    var imgs = _(arr).chain()
+               .filter(function(page) {
+                   return (page.page > 3)
+               }).map(function(page) {
+                   return page.src
+               }).value()
+
+!SLIDE bullets incremental
+
+* select
+* reduce
+* include
+* ...
 
 !SLIDE
 
@@ -66,25 +117,6 @@
     _(3).times(fun)
 
 !SLIDE
-
-    @@@javaScript
-    if (_([]).isArray())
-      fun();
-
-!SLIDE
-
-# Utilisez underscore.js
-
-## *3kb, Minified and Gzipped*
-
-## http://documentcloud.github.com/underscore/
-
-!SLIDE
-
-<iframe src="http://documentcloud.github.com/underscore/" width="100%" height="600px">
-
-!SLIDE
-
 # Callbacks soup
 
 !SLIDE
@@ -94,7 +126,7 @@
        fun2(function() {
           fun3(function() {
               fun4(function() {
-                 // interesting code here
+                 // interesting code here (maybe)
               })
           })
        })
@@ -102,49 +134,51 @@
 
 !SLIDE
 
+    @@@javascript
+    var sequence = Futures.sequence()
+    sequence.then(fun1(10))
+            .then(fun2())
+            .then(fun3())
+            .then(fun4())
+
+!SLIDE
+
     @@@ javascript
-    var end = function(number, fun) {
+    function callMeAfter(number, fun) {
         var i = 0
         return function() {
            i++
            if (number == i) fun()
         }
     }
-    var onEnd = end(3, function() {
+    var onEnd = callMeAfter(3, function() {
         alert('finished')
-    });
-    fun('plop', onEnd)
-    fun('plip', onEnd)
-    fun('cataclop', onEnd)
-
-
-!SLIDE
-
-    @@@javascript
-    var sequence = Futures.sequence()
-    sequence.then(fun1)
-            .then(fun2)
-            .then(fun3)
-            .then(fun4)
+    })
+    fun1(onEnd)
+    fun2(onEnd)
+    fun3(onEnd)
 
 !SLIDE
 
     @@@javascript
     var join = sequence.join()
-    join.add(fun1)
-    join.add(fun2)
-    join.add(fun3)
+    join.add(fun1())
+    join.add(fun2())
+    join.add(fun3())
     join.when(function() {
        alert('finished')
     })
 
 !SLIDE
-
 # Futures, Promise ..
 
 ## https://github.com/coolaj86/futures
 
 ## NodeJS && browser
+
+!SLIDE center
+# Avertissement
+## La fin de cette présentation n'est toujours sur coffee-script
 
 !SLIDE
 
@@ -158,13 +192,13 @@
     @@@javascript
     var [a, b] = fun()
 
-!SLIDE
+!SLIDE small
 
     @@@javascript
     function plop() {
-        arguments = Array.prototype.slice.call(arguments, 0);
-        arguments.forEach(function(arg) {
-            console.log(arg);
+        var args = Array.prototype.slice.call(arguments, 0)
+        args.forEach(function(arg) {
+            console.log(arg)
         });
     }
 
@@ -173,16 +207,14 @@
     @@@javascript
     function plop(...args) {
         args.forEach(function(arg) {
-            console.log(arg);
+            console.log(arg)
         });
     }
 
 !SLIDE center
-
-# Utiliser du javascript moderne
+# Javascript moderne
 
 ## http://code.google.com/p/traceur-compiler/
 
 !SLIDE
-
 # Questions ?

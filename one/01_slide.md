@@ -94,7 +94,7 @@
 
 ## http://documentcloud.github.com/underscore/
 
-!uSLIDE
+!SLIDE
 
     @@@javaScript
     var imgs = _(arr).chain()
